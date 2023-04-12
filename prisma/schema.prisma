@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// model User {
+//   id Int @id @default(autoincrement())
+//   name String @unique
+//   createdAt DateTime @default(now())
+//   createdBy String  @default("admin")
+//   isAdmin   Boolean @default(false)
+// }
+
+model device{
+  id Int @id @default(autoincrement())
+  device_id String
+  imei String
+  mercent_number String
+  createdAt DateTime @default(now())
+  createdBy String  @default("admin")
+  is_delete Boolean @default(false)  
+  ack_msg message_ack[]
+
+}
+
+model mqtt_topic{
+  id Int @id @default(autoincrement())
+  device_id String
+  topic String
+  createdAt DateTime @default(now())
+  createdBy String  @default("admin")
+  is_delete Boolean @default(false) 
+}
+
+model messages{
+  id Int @id @default(autoincrement())
+  device_id String
+  payload String @db.Text
+  publish_time DateTime 
+  createdAt DateTime @default(now())
+  createdBy String  @default("admin")
+  is_delete Boolean @default(false)
+  ack_msg message_ack[]
+}
+
+model message_ack{
+  id Int @id @default(autoincrement())
+  message_id Int 
+  device_id  Int
+  device device @relation(fields: [device_id], references: [id])
+  message messages @relation(fields: [message_id], references: [id])
+  createdAt DateTime @default(now())
+  createdBy String  @default("admin")
+  receiving_time DateTime
+  is_delete Boolean @default(false)
+
+}
