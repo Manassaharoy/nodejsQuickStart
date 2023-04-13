@@ -12,10 +12,51 @@ function errorHandlerMiddleware(error, req, res, next) {
     message: "Something went wrong",
   };
 
-  if (error.name === "Error") {
+  if (error.code === "P0002") {
     defaultError = {
       code: 409,
       message: "Conflict",
+    };
+    let encrpted = encryptData({
+      success: false,
+      data: null,
+      isError: true,
+      error: defaultError,
+      errMsg: error.message,
+    });
+
+    const responseObject = {
+      encoded: encrpted,
+      jrn: generateRandomNumber(),
+    };
+
+    return res.status(defaultError.code).json(responseObject);
+  }
+  if (error.code === "P2003") {
+    defaultError = {
+      code: 406,
+      message: "Method Not Allowed",
+    };
+    let encrpted = encryptData({
+      success: false,
+      data: null,
+      isError: true,
+      error: defaultError,
+      errMsg: error.message,
+    });
+
+    const responseObject = {
+      encoded: encrpted,
+      jrn: generateRandomNumber(),
+    };
+
+    return res.status(defaultError.code).json(responseObject);
+  }
+
+  if (error.code === "P2025") {
+    defaultError = {
+      code: 404,
+      message: "Data not found",
     };
     let encrpted = encryptData({
       success: false,

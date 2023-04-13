@@ -63,11 +63,43 @@ const createMqttTopic = tryCatchMiddleware(async (req, res, next) => {
   responseSend(res, mqtt_topic);
 });
 
+//? Messages
+const getAllMessages = tryCatchMiddleware(async (req, res, next) => {
+    let messages = await prisma.messages.findMany();
+    responseSend(res, messages);
+  });
+
+const createMessages = tryCatchMiddleware(async (req, res, next) => {
+  coloredLog([JSON.stringify(req.body)], 5);
+
+  let messages = await prisma.messages.create({ data: req.body });
+
+  responseSend(res, messages);
+});
+
+//? Message ACK
+const getAllMessagesAck = tryCatchMiddleware(async (req, res, next) => {
+    let message_ack = await prisma.message_ack.findMany();
+    responseSend(res, message_ack);
+  });
+
+const createMessagesAck = tryCatchMiddleware(async (req, res, next) => {
+  coloredLog([JSON.stringify(req.body)], 5);
+
+  let message_ack = await prisma.message_ack.create({ data: req.body });
+
+  responseSend(res, message_ack);
+});
+
 module.exports = {
   getAllDevices,
   createDevice,
   updateDevice,
   deleteDevice,
   getAllMqttTopics,
-  createMqttTopic
+  createMqttTopic,
+  getAllMessages,
+  createMessages,
+  getAllMessagesAck,
+  createMessagesAck,
 };

@@ -10,9 +10,8 @@ const prisma = new PrismaClient();
 
 const createUser = tryCatchMiddleware(async (req, res, next) => {
   coloredLog([JSON.stringify(req.body)], 5);
-  const { name } = req.body;
 
-  let user = await prisma.user.create({ data: { name: name } });
+  let user = await prisma.user.createMany({data: req.body});
 
   responseSend(res, user)
 });
@@ -51,9 +50,31 @@ const getAllUsers = tryCatchMiddleware(async (req, res, next) => {
   responseSend(res, users)
 });
 
+const createHouse = tryCatchMiddleware(async (req, res, next) => {
+  coloredLog([JSON.stringify(req.body)], 5);
+  
+  let house = await prisma.house.createMany({ data: req.body });
+
+  responseSend(res, house)
+});
+
+const getAllHouses = tryCatchMiddleware(async (req, res, next) => {
+  let houses = await prisma.house.findMany({where:{
+    wifiPassword:{
+      not:""
+    }
+  },include:{
+    owner: true,
+    buildBy:true
+  }});
+  responseSend(res, houses)
+});
+
 module.exports = {
   getAllUsers,
   createUser,
   updateUser,
   deleteUser,
+  createHouse,
+  getAllHouses
 };

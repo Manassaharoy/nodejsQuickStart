@@ -1,7 +1,7 @@
 
 # Node js quickstart. 
 
-All necessary douments will be available soon
+All necessary douments will be available soon.
 
 # Features 
 
@@ -41,6 +41,9 @@ Start the server
 ```bash
   npm start
 ```
+## Prisma commands:
+- After creating//modifying a schema use command to migrate ``` npx prisma migrate dev --name init --create-only ```
+- after migration run deploy command ``` npx prisma migrate deploy ```
 
 
 # Colorful terminal codes
