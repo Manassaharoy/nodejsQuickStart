@@ -30,3 +30,8 @@ model house {
   updatedAt    DateTime @updatedAt
 }
 ```
+
+## Flow:
+- ```npm i``` to install all dependencies
+- update "DATABASE_URL" in the .env file
+- ```npm run test``` to start the server
