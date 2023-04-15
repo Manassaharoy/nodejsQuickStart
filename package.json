@@ -1,6 +1,6 @@
 {
   "name": "nodejsquickstart",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A quick start node js template",
   "main": "index.js",
   "type": "commonjs",

@@ -51,8 +51,8 @@ app.use(loggerMiddleware);
 app.use(decryptionMiddleware);
 
 //? API points
-app.use("/", homeRoute);
-app.use("/user", userRoute);
+// app.use("/", homeRoute);
+// app.use("/user", userRoute);
 app.use("/devices", deviceRoute);
 
 //? middlewares
