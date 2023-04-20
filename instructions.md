@@ -1,5 +1,5 @@
 ## Prisma commands:
-- After creating//modifying a schema use command to migrate ``` npx prisma migrate dev --name init --create-only ```
+- After creating//modifying a schema use command to migrate ``` npx prisma migrate dev --name init```
 - after migration run deploy command ``` npx prisma migrate deploy ```
 
 
